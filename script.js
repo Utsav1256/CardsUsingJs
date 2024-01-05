@@ -19,9 +19,10 @@ const users = [
   },
 ];
 
-let clutter = "";
-users.forEach((user) => {
-  clutter += `<div id="card">
+function print() {
+  let clutter = "";
+  users.forEach((user, index) => {
+    clutter += `<div id="card">
   <div id="img"><img src="${user.image}"></img></div>
   <div id="name">
   <h3>${user.name}</h3>
@@ -29,9 +30,20 @@ users.forEach((user) => {
   <div id="description">
   Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, odit!
   </div>
-  <div id="status">${user.status}</div>
-  <button>Add Friend</button>
+  <div id="${user.status}" class="H${index}">${user.status}</div>
+  <button id="${index}">Add Friend</button>
   </div>`;
-});
+  });
 
-document.querySelector("#main").innerHTML = clutter;
+  document.querySelector("#main").innerHTML = clutter;
+}
+
+print();
+
+document.querySelector("#main").addEventListener("click", (details) => {
+  users[details.target.id].status = "Friends";
+  // document.querySelector("#status").style.color = "green";
+  // will nt work because these are not initial elements of DOM
+
+  print();
+});
